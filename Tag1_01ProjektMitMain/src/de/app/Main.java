@@ -2,26 +2,24 @@ package de.app;
 
 
 
-import de.dep.Dependency;
+
+import java.lang.reflect.Method;
+
 import de.utils.StringUtil;
 
 
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception{
 		
-		StringUtil util = new StringUtil();
-		System.out.println(util.toUpperCase("Hallo"));
-	
+		Object obj = Class.forName("de.dep.Schwein").newInstance();
+		Method m = obj.getClass().getDeclaredMethod("setGewicht",int.class);
+		m.setAccessible(true);
+		m.invoke(obj, -100);
 		
-		Dependency dep = Dependency.create();
+		System.out.println(obj);
 		
-		dep.drucken();
-		
-		
-//		Dependency dep = DependencyFactory.create();
-//		dep.drucken();
 	}
 
 }
